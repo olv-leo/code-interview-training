@@ -19,7 +19,7 @@ Vamos começar do início, o problema se chama [TwoSum](ADD LINK DO PROBLEMA ORI
 DoisSomados e o enunciado do problema é basicamente o seguinte:
 Você vai receber uma lista de números e um número alvo e seu objetivo é encontrar quais números da lista que somados são
 iguais ao número alvo, exemplo:
-```
+```python
 lista = [1, 4, 2, 5, 9, 7]
 numero_alvo = 9
 ```
@@ -30,4 +30,4 @@ Para esse exemplo olhando a lista e o número alvo podemos ver que:
 Logo a resposta nesse exemplo seria a posição dos números 4 e 5 na lista, ou seja [1,3], como podemos ver na
 imagem abaixo:
 
-![img_1.png](img1-posicao-e-valores.png)
+![img_1.png](images/img1-posicao-e-valores.png)
