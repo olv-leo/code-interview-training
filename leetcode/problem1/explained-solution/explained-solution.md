@@ -19,15 +19,140 @@ Vamos começar do início, o problema se chama [TwoSum](ADD LINK DO PROBLEMA ORI
 DoisSomados e o enunciado do problema é basicamente o seguinte:
 Você vai receber uma lista de números e um número alvo e seu objetivo é encontrar quais números da lista que somados são
 iguais ao número alvo, exemplo:
+
 ```python
 lista = [1, 4, 2, 5, 9, 7]
 numero_alvo = 9
 ```
+
 Para esse exemplo olhando a lista e o número alvo podemos ver que:
 
 4 + 5 = 9
 
-Logo a resposta nesse exemplo seria a posição dos números 4 e 5 na lista, ou seja [1,3], como podemos ver na
-imagem abaixo:
+Logo a resposta nesse exemplo seria a posição dos números 4 e 5 na lista, ou seja [1,3], como podemos ver na imagem
+abaixo:
 
 ![img_1.png](images/img1-posicao-e-valores.png)
+
+Agora que já entendemos como nosso algoritmo deve funcionar vamos pensar na implementação. Esse exercício é bem simples
+para resolver mentalmente uma vez que entendemos a dinâmica, o desafio real está em como implementar isso através de um
+algoritmo que seja rápido mesmo para grande volume de dados. Minha ideia inicial foi utilizar uma lógica que usei para
+resolver ou outro problema (esse aqui) que é a seguinte:
+1º Vamos organizar a lista em ordem crescente, ou seja, do menor valor para o maior valor:
+
+```python
+lista_original = [1, 4, 2, 5, 9, 7]
+lista_ordenada = [1, 2, 4, 5, 7, 9]
+```
+
+2º Vamos fazer a soma dos extremos da lista, ou seja, vamos somar o maior e o menor valor:
+
+```python
+menor_valor = 1
+maior_valor = 9
+soma_extremos = menor_valor + maior_valor  # soma_extremos = 1 + 9 => soma_extremos = 10
+```
+
+3º Vamos comparar a soma dos extremos com o nosso número alvo:
+
+```python
+soma_extremos = 10
+numero_alvo = 9
+```
+
+Analisando os dois valores podemos ver que a soma dos extremos é maior que o número alvo, ou seja, o maior e o menor
+número da nossa lista somados são maiores que nosso valor alvo.
+
+Com isso podemos concluir que o maior número da nossa lista, no exemplo 9, é grande demais para o número alvo, afinal se
+mesmo somado com o menor número da lista, no caso o 1, o resultado é maior que o o número alvo então não compensa nem
+verificar quanto vai dar a soma desse número maior com os outros. Só para tentar deixar mais claro, usando essa lógica
+não precisamos comparar o 9 com todos os números, só precisamos comprar ele com o número 1 que é o menor da lista e isso
+vai nos dar muito mais velocidade na resolução do problema!!
+
+Talvez se você já programa a um tempo e está acostumado com esse tipo de solução pode achar essa lógica bem simples e
+talvez já até tenha uma lógica melhor, mas eu fiquei super feliz quando consegui chegar nessa lógica!!!
+
+Vou continuar a lógica para fechar o raciocínio antes de partir para o código.
+
+4º Defina um novo maior_valor ou menor_valor de acordo com a comparação da soma_extremos com o numero_alvo:
+
+- Se a soma_extremos for maior que número alvo: Exclua o maior número da lista e repita o passo 2
+- Se a soma_extremos for menor que o número alvo: Exclua o menor número da lista e repita o passo 2 Faça essa processo
+  até encontrar o número alvo ou até que só exista um único número na lista Então resumindo nosso algoritmo:
+
+1. Ordenar a lista
+2. Somar extremos da lista
+3. Comparar soma com número alvo
+4. Redefinir a lista
+5. Voltar para o passo 2 (até encontrar o valor alvo ou só sobrar apenas um elemento na lista)
+   Vamos colocar em prática com nosso exemplo para deixar mais claro:
+
+Se o exercício pedisse para encontrar quais números da lista que somados resultam no número alvo nosso algoritmo estaria
+pronto, mas ele pede para encontrar a posição desses números na lista, e foi esse ponto que deixou esse exercício um
+pouco mais difícil para mim. Novamente, olhando a lista inicial na imagem abaixo é fácil ver que a posição dos números é
+2 e 5
+
+![img_1.png](images/img1-posicao-e-valores.png)
+
+O problema é como fazer o programa encontrar essa resposta. Minha primeira ideia foi a seguinte, eu peço para o script
+retornar a posição dos números encontrados na lista original, em códico python ficaria assim:
+
+```python
+return [lista_original.index(2), lista_original.index(7)]
+```
+
+O que resultaria em: [2, 5], que é a resposta correta, o problema é que em alguns casos essa tática não funciona, pois
+como o método .index() do python procura o elemento da esquerda para a direta e retorna a posição que ele encontra se a
+lista original tiver dois elementos repetidos que somados resultam no numero objetivo eu encontraria uma resposta
+errada. Imagine por exemplo que:
+
+```python
+Lista = [0, 5, 3, 2, 8, 3, 9]
+Numero
+objetivo = 6  # No exemplo acima nosso script encontraria que 3 + 3 = 6 ou seja ele retornaria o seguinte:
+
+return [lista_original.index(3), lista_original.index(3)]
+# O que resultaria em: [2, 2], que é a resposta errada, a correta seria [2, 5].
+```
+
+Para resolver esse problema eu fiz uma pequena mudança no algoritmo que vou explicar para vocês analisando o código da
+minha resposta final:
+
+```python
+def TwoSum(lista, valor_alvo):
+    lista = [(posicao, numero) for posicao, numero in enumerate(lista)]
+    lista_ordenada = sorted(lista, key=lambda x: x[1])
+    while len(lista) >= 2:
+        maior_valor = lista_ordenada[-1][1]
+        menor_valor = lista_ordenada[0][1]
+        soma_extremos = maior_valor + menor_valor
+
+        if soma_extremos > valor_alvo:
+            del lista_ordenada[-1]
+
+        elif soma_extremos < valor_alvo:
+            del lista_ordenada[0]
+
+        else:
+            return [lista_ordenada[0][0], lista_ordenada[-1][0]]
+```
+
+Analisando linha a linha o que temos é o seguinte:
+<details>
+<summary> Linha 2
+
+```python
+lista = [(posicao, numero) for posicao, numero in enumerate(lista)]
+```
+</summary>
+
+Essa primeira linha criamos uma lista que salva cada um dos números da lista inicial e suas respectivas posições. Por
+exemplo se fizermos o teste com a lista = [0,5,3,2,8,3,9] e o valor_alvo = 6 essa primeira linha nos daria o seguinte
+resultado:
+```python
+lista = [(0,0), (1,5), (2,3), (3,2), (4,8), (5,3), (6,9)]
+```
+</details>
+
+
+
