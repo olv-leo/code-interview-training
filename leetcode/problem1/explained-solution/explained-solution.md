@@ -139,19 +139,68 @@ def TwoSum(lista, valor_alvo):
 
 Analisando linha a linha o que temos é o seguinte:
 <details>
-<summary> Linha 2
+<summary> Linha 2: Criando lista com os índices
 
 ```python
 lista = [(posicao, numero) for posicao, numero in enumerate(lista)]
 ```
+
 </summary>
 
 Essa primeira linha criamos uma lista que salva cada um dos números da lista inicial e suas respectivas posições. Por
 exemplo se fizermos o teste com a lista = [0,5,3,2,8,3,9] e o valor_alvo = 6 essa primeira linha nos daria o seguinte
 resultado:
+
 ```python
-lista = [(0,0), (1,5), (2,3), (3,2), (4,8), (5,3), (6,9)]
+lista = [(0, 0), (1, 5), (2, 3), (3, 2), (4, 8), (5, 3), (6, 9)]
 ```
+
+</details>
+
+<details>
+<summary> Linha 3: Ordenando a lista
+
+```python
+lista_ordenada = sorted(lista, key=lambda x: x[1])
+```
+
+</summary>
+Aqui ordenamos nossa lista considerando os valores da lista original, ou seja, antes da ordenação tinhamos:
+`lista = [(0, 0), (1, 5), (2, 3), (3, 2), (4, 8), (5, 3), (6, 9)]`
+
+Depois da ordenação ficamos com o seguinte resultado:
+`lista_ordenada = [(0, 0), (3, 2), (2, 3), (5, 3), (1, 5), (4, 8), (6, 9)]`
+
+</details>
+
+<details>
+<summary> Linha 4: Criando um loop 
+
+```python
+while len(lista) >= 2
+```
+
+</summary>
+Aqui definimos um loop que vai acontecer enquanto houver mais que dois elementos na lista, a ideia é que a cada iteração
+vamos excluir um elemento da lista, até que no final vamos ficar com uma das duas possibilidades:
+1. Vamos encontrar uma soma de valores que resulta no valor procurado
+2. Não vamos encontrar essa soma e vamos sair do loop
+</details>
+
+<details>
+<summary> Linha 5 a 7: Definindo extremos da lista
+
+```python
+maior_valor = lista_ordenada[-1][1]
+menor_valor = lista_ordenada[0][1]
+soma_extremos = maior_valor + menor_valor
+```
+
+</summary>
+Aqui definimos um loop que vai acontecer enquanto houver mais que dois elementos na lista, a ideia é que a cada iteração
+vamos excluir um elemento da lista, até que no final vamos ficar com uma das duas possibilidades:
+1. Vamos encontrar uma soma de valores que resulta no valor procurado
+2. Não vamos encontrar essa soma e vamos sair do loop
 </details>
 
 
