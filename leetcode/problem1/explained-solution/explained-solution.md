@@ -1,10 +1,10 @@
 # Leetcode - Problem 1: Explicando soluções
 
-Se tem uma coisa que eu sempre gostei foi resolver esses problemas de lógica o que eu mais achava interessante era que
-muitas vezes existia mais de uma caminho possível para chegar na respostas certa ou então tinha alguma sacada simples
-que facilitava muito o processo de na solução.
+Se tem uma coisa que eu sempre gostei foi resolver esses problemas de lógica o que acho mais interessante é que muitas
+vezes existe mais de uma caminho possível para chegar na respostas certa ou então tem alguma sacada simples que
+facilita muito o processo de solução.
 
-Faz mais ou menos uns 2 meses que comecei a estudar programação de mais intensamente e uma das coisas que eu mais gosto
+Há aproximadamente 2 meses que comecei a estudar programação de mais intensamente e uma das coisas que eu mais gosto
 de fazer é resolver desafios e problemas de lógica de programação e algoritimos, tanto que de tempo em tempos estou
 fazendo lives com meu amigo Bino no nosso canal [“Estudando Programação na Prática”](ADD LINK DO CANAL) resolvendo
 alguns desses problemas.
@@ -188,7 +188,7 @@ vamos excluir um elemento da lista, até que no final vamos ficar com uma das du
 </details>
 
 <details>
-<summary> Linha 5 a 7: Definindo extremos da lista
+<summary> Linha X a Y: Definindo extremos da lista
 
 ```python
 maior_valor = lista_ordenada[-1][1]
@@ -202,6 +202,58 @@ vamos excluir um elemento da lista, até que no final vamos ficar com uma das du
 1. Vamos encontrar uma soma de valores que resulta no valor procurado
 2. Não vamos encontrar essa soma e vamos sair do loop
 </details>
+
+<details>
+<summary> Linha X a Y: Caso 01 - soma dos extremos MAIOR que valor alvo
+
+```python
+        if soma_extremos > valor_alvo:
+    del lista_ordenada[-1]
+```
+
+</summary>
+Caso a soma dos extremos da lista ordenada seja maior que o valor alvo, nos excluimos o último elemento da lista,
+afinal se mesmo somado com o menor elemento da lista o resultado é maior que o valor alvo nem compensa analisar quanto 
+vai dar a soma desse valor maior com os outros elementos da lista.
+</details>
+
+<details>
+<summary> Linha X a Y: Caso 02 - soma dos extremos MENOR que valor alvo
+
+```python
+        elif soma_extremos < valor_alvo:
+del lista_ordenada[0]
+```
+
+</summary>
+Caso a soma dos extremos da lista ordenada seja menor que o valor alvo, nos excluimos o primeiro elemento da lista, a 
+lógica aqui é a mesma que usamos no caso anterior, se o menor elemento da lista somado com o maior elemento da lista 
+ainda assim resulta em um número menor que o valor alvo não compensa analisar esse menor elemento somado com nenhum dos 
+outros elementos da lista. 
+</details>
+
+<details>
+<summary> Linha X a Y: Caso 03 - soma dos extremos é igual ao valor alvo
+
+```python
+        else:
+return [lista_ordenada[0][0], lista_ordenada[-1][0]]
+```
+
+</summary>
+Por fim, caso a soma dos extremos não seja nem maior, nem menor que o valor alvo podemos concluir que a soma é igual ao
+valor alvo, ou seja, chegamos na nossa resposta, nesse caso a função retorna o índice dos dois números que estão nos
+extremos, que salvamos lá na linha 2 do código.
+</details>
+
+
+Caso nenhum dos números da lista somados resultem no valor alvo a função não vai retornar nada.
+
+Essa foi a solução que pensei para esse desafio, a ideia desse texto não é mostrar qual a melhor solução para o desafio
+mas compartilhar com vocês essa lógica que usei para a solução, se você pensou em algo diferente ou ficou com dúvida em
+algum ponto, fique a vontade para comentar!
+
+Obrigado para você que leu até aqui e até o próximo texto =D 
 
 
 
