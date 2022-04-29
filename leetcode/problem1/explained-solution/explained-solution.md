@@ -1,24 +1,24 @@
 # Leetcode - Problem 1: Explicando soluções
 
 Se tem uma coisa que eu sempre gostei foi resolver esses problemas de lógica o que acho mais interessante é que muitas
-vezes existe mais de uma caminho possível para chegar na respostas certa ou então tem alguma sacada simples que
-facilita muito o processo de solução.
+vezes existe mais de uma caminho possível para chegar na respostas certa ou então tem alguma sacada simples que facilita
+muito o processo de solução.
 
-Há aproximadamente 2 meses que comecei a estudar programação de mais intensamente e uma das coisas que eu mais gosto
-de fazer é resolver desafios e problemas de lógica de programação e algoritimos, tanto que de tempo em tempos estou
-fazendo lives com meu amigo Bino no nosso canal [“Estudando Programação na Prática”](ADD LINK DO CANAL) resolvendo
-alguns desses problemas.
+Há aproximadamente 2 meses que comecei a estudar programação de mais intensamente e uma das coisas que eu mais gosto de
+fazer é resolver desafios e problemas de lógica de programação e algoritimos, tanto que praticamente toda semana faço
+lives com meu amigo Bino no nosso canal [“Estudando Programação na Prática”](ADD LINK DO CANAL) resolvendo esse tipo de
+exercício.
 
 A ideia desse post é compartilhar com vocês a solução de problema que vi no [leetcode](ADD LINK LEETCODE) se você também
-gosta de programação e de resolver esse tipo de exercício para praticar não esquece de comentar no fim me falando o que
-achou da solução e como você resolveria!
+gosta de programação e de resolver esse tipo de exercício para praticar não esquece de antes de ler como eu resolvi o
+problema comentar tentar resolver e comentar como ficou sua solução!
 
-## Resolvendo o TwoSum
+## Entendendo o problema
 
 Vamos começar do início, o problema se chama [TwoSum](ADD LINK DO PROBLEMA ORIGINAL) ou em uma tradução livre
 DoisSomados e o enunciado do problema é basicamente o seguinte:
-Você vai receber uma lista de números e um número alvo e seu objetivo é encontrar quais números da lista que somados são
-iguais ao número alvo, exemplo:
+Você vai receber uma lista de números e um número alvo e seu objetivo é encontrar quais são as posições dos números da
+lista que somados são iguais ao número alvo, exemplo:
 
 ```python
 lista = [1, 4, 2, 5, 9, 7]
@@ -32,12 +32,13 @@ Para esse exemplo olhando a lista e o número alvo podemos ver que:
 Logo a resposta nesse exemplo seria a posição dos números 4 e 5 na lista, ou seja [1,3], como podemos ver na imagem
 abaixo:
 
-![img_1.png](images/img1-posicao-e-valores.png)
+![img_1.png](img/img1-posicao-e-valores.png)
 
 Agora que já entendemos como nosso algoritmo deve funcionar vamos pensar na implementação. Esse exercício é bem simples
 para resolver mentalmente uma vez que entendemos a dinâmica, o desafio real está em como implementar isso através de um
 algoritmo que seja rápido mesmo para grande volume de dados. Minha ideia inicial foi utilizar uma lógica que usei para
-resolver ou outro problema (esse aqui) que é a seguinte:
+resolver um outro problema ((esse aqui)[COLOCAR LINK DA LIVE]) que é a seguinte:
+
 1º Vamos organizar a lista em ordem crescente, ou seja, do menor valor para o maior valor:
 
 ```python
@@ -64,35 +65,40 @@ Analisando os dois valores podemos ver que a soma dos extremos é maior que o n�
 número da nossa lista somados são maiores que nosso valor alvo.
 
 Com isso podemos concluir que o maior número da nossa lista, no exemplo 9, é grande demais para o número alvo, afinal se
-mesmo somado com o menor número da lista, no caso o 1, o resultado é maior que o o número alvo então não compensa nem
-verificar quanto vai dar a soma desse número maior com os outros. Só para tentar deixar mais claro, usando essa lógica
-não precisamos comparar o 9 com todos os números, só precisamos comprar ele com o número 1 que é o menor da lista e isso
-vai nos dar muito mais velocidade na resolução do problema!!
+mesmo somado com o menor número da lista, no caso o 1, resulta em um número maior que o número alvo, então não compensa
+nem verificar quanto vai dar a soma desse número maior com os outros.
+
+Só para tentar deixar mais claro, usando essa lógica não precisamos comparar o 9 com todos os números, só precisamos
+comprar ele com o número 1 que é o menor da lista e isso vai nos dar mais velocidade para nosso algoritmo de solução.
 
 Talvez se você já programa a um tempo e está acostumado com esse tipo de solução pode achar essa lógica bem simples e
-talvez já até tenha uma lógica melhor, mas eu fiquei super feliz quando consegui chegar nessa lógica!!!
+já até tenha uma lógica melhor em mente, mas eu fiquei super feliz quando consegui chegar nessa lógica!!!
 
 Vou continuar a lógica para fechar o raciocínio antes de partir para o código.
 
 4º Defina um novo maior_valor ou menor_valor de acordo com a comparação da soma_extremos com o numero_alvo:
 
 - Se a soma_extremos for maior que número alvo: Exclua o maior número da lista e repita o passo 2
-- Se a soma_extremos for menor que o número alvo: Exclua o menor número da lista e repita o passo 2 Faça essa processo
-  até encontrar o número alvo ou até que só exista um único número na lista Então resumindo nosso algoritmo:
+- Se a soma_extremos for menor que o número alvo: Exclua o menor número da lista e repita o passo 2 
+
+Faça essa processo até encontrar o número alvo ou até que só exista um único número na lista.
+
+Então resumindo nosso algoritmo:
 
 1. Ordenar a lista
 2. Somar extremos da lista
 3. Comparar soma com número alvo
 4. Redefinir a lista
 5. Voltar para o passo 2 (até encontrar o valor alvo ou só sobrar apenas um elemento na lista)
-   Vamos colocar em prática com nosso exemplo para deixar mais claro:
+
+Vamos colocar em prática com nosso exemplo para deixar mais claro:
 
 Se o exercício pedisse para encontrar quais números da lista que somados resultam no número alvo nosso algoritmo estaria
 pronto, mas ele pede para encontrar a posição desses números na lista, e foi esse ponto que deixou esse exercício um
 pouco mais difícil para mim. Novamente, olhando a lista inicial na imagem abaixo é fácil ver que a posição dos números é
 2 e 5
 
-![img_1.png](images/img1-posicao-e-valores.png)
+![img_1.png](img/img1-posicao-e-valores.png)
 
 O problema é como fazer o programa encontrar essa resposta. Minha primeira ideia foi a seguinte, eu peço para o script
 retornar a posição dos números encontrados na lista original, em códico python ficaria assim:
@@ -208,7 +214,7 @@ vamos excluir um elemento da lista, até que no final vamos ficar com uma das du
 
 ```python
         if soma_extremos > valor_alvo:
-    del lista_ordenada[-1]
+del lista_ordenada[-1]
 ```
 
 </summary>
