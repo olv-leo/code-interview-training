@@ -37,7 +37,7 @@ abaixo:
 Agora que já entendemos como nosso algoritmo deve funcionar vamos pensar na implementação. Esse exercício é bem simples
 para resolver mentalmente uma vez que entendemos a dinâmica, o desafio real está em como implementar isso através de um
 algoritmo que seja rápido mesmo para grande volume de dados. Minha ideia inicial foi utilizar uma lógica que usei para
-resolver um outro problema ((esse aqui)[COLOCAR LINK DA LIVE]) que é a seguinte:
+resolver um outro problema ([esse aqui](COLOCAR LINK DA LIVE)) que é a seguinte:
 
 1º Vamos organizar a lista em ordem crescente, ou seja, do menor valor para o maior valor:
 
@@ -65,16 +65,11 @@ Analisando os dois valores podemos ver que a soma dos extremos é maior que o n�
 número da nossa lista somados são maiores que nosso valor alvo.
 
 Com isso podemos concluir que o maior número da nossa lista, no exemplo 9, é grande demais para o número alvo, afinal se
-mesmo somado com o menor número da lista, no caso o 1, resulta em um número maior que o número alvo, então não compensa
+mesmo somado com o menor número da lista, no caso o 1, resulta num número maior que o número alvo. Logo não compensa
 nem verificar quanto vai dar a soma desse número maior com os outros.
 
 Só para tentar deixar mais claro, usando essa lógica não precisamos comparar o 9 com todos os números, só precisamos
-comprar ele com o número 1 que é o menor da lista e isso vai nos dar mais velocidade para nosso algoritmo de solução.
-
-Talvez se você já programa a um tempo e está acostumado com esse tipo de solução pode achar essa lógica bem simples e
-já até tenha uma lógica melhor em mente, mas eu fiquei super feliz quando consegui chegar nessa lógica!!!
-
-Vou continuar a lógica para fechar o raciocínio antes de partir para o código.
+comprar ele com o número 1 que é o menor da lista e isso vai dar mais velocidade para o nosso algoritmo de solução.
 
 4º Defina um novo maior_valor ou menor_valor de acordo com a comparação da soma_extremos com o numero_alvo:
 
